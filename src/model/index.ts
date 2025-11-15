@@ -9,17 +9,14 @@ export interface ModelParmas<T> {
   getLLM: () => T
 }
 
-type MessageParams = {
-  id: string
-  content: string
-}
-
 export type ModelTypeParams = {
   id: 'openai' | 'aws'
   systemPrompt: string
 }
 
 class Model {
+  private lcelAgent: any
+
   private agent!: any
   private chatHistory: Array<{ role: string; content: string }> = []
 
