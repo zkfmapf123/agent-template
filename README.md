@@ -18,6 +18,10 @@
 npm install chromadb @chroma-core/default-embed
 ```
 
+## Docs
+
+[Langchain](./docs/langchain.md)
+
 ## Reference
 
 - <a href="https://docs.langchain.com/oss/javascript/integrations/chat"> LangChain Model List </a>
