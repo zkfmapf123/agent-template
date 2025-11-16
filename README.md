@@ -25,3 +25,4 @@ npm install chromadb @chroma-core/default-embed
 ## Reference
 
 - <a href="https://docs.langchain.com/oss/javascript/integrations/chat"> LangChain Model List </a>
+- <a href="https://docs.trychroma.com/docs/overview/getting-started"> Chroma DB Client </a>

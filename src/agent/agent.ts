@@ -26,6 +26,12 @@ export class Agent<T> {
     throw new Error('Not implemented')
   }
 
+  protected pipeDocumentLoader() {}
+
+  protected pipeTextSplitter() {}
+
+  protected pipeEmbeddings() {}
+
   protected async invoke(input: string): Promise<T> {
     throw new Error('Not implemented')
   }
