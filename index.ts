@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { VectorConfig } from './confis/vector'
+import { VectorConfig } from './configs/vector'
 import { CEOSearchAgent } from './src/agent/search_ceo'
 import { inputText } from './src/utils/cli'
 
