@@ -12,11 +12,11 @@ export class OpenAI implements ModelParmas<ChatOpenAI> {
     this.model = model
   }
 
-  createModel(): this {
+  createModel(predeteced = 0): this {
     this.llm = new ChatOpenAI({
       model: this.model,
       apiKey: this.apiKey,
-      temperature: 0, // 0 이면 예측 값, 1 이면 랜덤 값
+      temperature: predeteced, // 0 이면 예측 값, 1 이면 랜덤 값
     })
     return this
   }

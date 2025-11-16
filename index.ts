@@ -1,11 +1,17 @@
-import { v4 as uuidv4 } from 'uuid'
-import { model } from './src/model'
+import { z } from 'zod'
+import { CEOSearchAgent } from './src/agent/search_ceo'
 import { inputText } from './src/utils/cli'
 
-const start = async () => {
-  const uuid = uuidv4()
+const schema = z.object({
+  name: z.string().describe('사용자의 이름, 찾지 못할 시 null'),
+  age: z.number().describe('사용자의 나이, 찾지 못할 시 null'),
+  birthDay: z.number().describe('사용자의 생년월일, 찾지 못할 시 null'),
+})
 
-  const openaiModel = model.getAgent({ id: 'openai', systemPrompt: '너는 조언가 입니다. 사용자의 질문에 대해 적절한 조언을 제시해주세요.' })
+const start = async () => {
+  const agent = new CEOSearchAgent<z.infer<typeof schema>>('openai', '너는 사용자의 말을 output 형식에 맞게 변환해주는 역할을 합니다.').createAgent(
+    schema
+  )
 
   while (true) {
     const input = await inputText('Enter a message : ')
@@ -16,8 +22,9 @@ const start = async () => {
       process.exit(0)
     }
 
-    const response = await openaiModel.invoke(input)
-    console.log(response)
+    const repsonse = await agent.invoke(input)
+
+    console.log(repsonse)
   }
 }
 
