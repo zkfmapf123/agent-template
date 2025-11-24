@@ -5,7 +5,7 @@ import { StringOutputParser } from '@langchain/core/output_parsers'
 import { ChatPromptTemplate, MessagesPlaceholder } from '@langchain/core/prompts'
 import { RunnableSequence } from '@langchain/core/runnables'
 import { RecursiveCharacterTextSplitter } from '@langchain/textsplitters'
-import type { BaseMessage } from 'langchain'
+import { AIMessage, HumanMessage, type BaseMessage } from 'langchain'
 import type { ZodSchema } from 'zod'
 import type { ModelType } from '../interface/model'
 import { Agent } from './agent'
@@ -72,9 +72,13 @@ export class PDFAgent<T> extends Agent<T> {
     this.agent = chain
   }
 
-  override invoke(input: string): Promise<T> {
-    return this.agent.invoke({
+  override async invoke(input: string): Promise<T> {
+    const result = await this.agent.invoke({
+      history: this.chatHistory,
       question: input,
     })
+
+    this.chatHistory.push(new HumanMessage(input), new AIMessage(result as string))
+    return result as T
   }
 }
