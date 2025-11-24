@@ -2,7 +2,7 @@ import { formatDocumentsAsString } from '@langchain/classic/util/document'
 import { MemoryVectorStore } from '@langchain/classic/vectorstores/memory'
 import { PDFLoader } from '@langchain/community/document_loaders/fs/pdf'
 import { StringOutputParser } from '@langchain/core/output_parsers'
-import { ChatPromptTemplate } from '@langchain/core/prompts'
+import { ChatPromptTemplate, MessagesPlaceholder } from '@langchain/core/prompts'
 import { RunnableSequence } from '@langchain/core/runnables'
 import { RecursiveCharacterTextSplitter } from '@langchain/textsplitters'
 import type { BaseMessage } from 'langchain'
@@ -60,7 +60,11 @@ export class PDFAgent<T> extends Agent<T> {
         context: (input: { question: string }) => retriever.pipe(formatDocumentsAsString).invoke(input.question),
         question: (input: { question: string }) => input.question,
       },
-      ChatPromptTemplate.fromTemplate(this.systemPrompt),
+      ChatPromptTemplate.fromMessages([
+        ['system', this.systemPrompt],
+        new MessagesPlaceholder('history'),
+        ['human', 'Context: {context}\n\nQuestion: {question}'],
+      ]),
       this.model.getLLM(),
       new StringOutputParser(),
     ])
