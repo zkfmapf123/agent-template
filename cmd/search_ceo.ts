@@ -1,7 +1,7 @@
 import { z } from 'zod'
-import { VectorConfig } from './configs/vector'
-import { CEOSearchAgent } from './src/agent/search_ceo'
-import { inputText } from './src/utils/cli'
+import { VectorConfig } from '../configs/vector'
+import { CEOSearchAgent } from '../src/agent/search_ceo'
+import { inputText } from '../src/utils/cli'
 
 const schema = z.object({
   name: z.string().describe('사용자의 이름, 찾지 못할 시 ""'),

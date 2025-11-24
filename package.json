@@ -7,7 +7,7 @@
   "scripts": {
     "clear": "clear",
     "up": "docker-compose up --build -d",
-    "start": "npm run clear && tsx index.ts",
+    "searchCEO": "npm run clear && cd cmd && tsx search_ceo.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
