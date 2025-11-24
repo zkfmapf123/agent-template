@@ -1,5 +1,5 @@
 import { ChatOpenAI, type OpenAIChatModelId } from '@langchain/openai'
-import type { ModelParmas } from './index'
+import type { ModelParmas } from '../interface/model'
 
 /**
  * @reference https://docs.langchain.com/oss/javascript/integrations/chat#openai

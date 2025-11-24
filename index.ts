@@ -4,9 +4,9 @@ import { CEOSearchAgent } from './src/agent/search_ceo'
 import { inputText } from './src/utils/cli'
 
 const schema = z.object({
-  name: z.string().describe('사용자의 이름, 찾지 못할 시 null'),
-  age: z.number().describe('사용자의 나이, 찾지 못할 시 null'),
-  birthDay: z.number().describe('사용자의 생년월일, 찾지 못할 시 null'),
+  name: z.string().describe('사용자의 이름, 찾지 못할 시 ""'),
+  age: z.number().describe('사용자의 나이, 찾지 못할 시 0'),
+  birthDay: z.number().describe('사용자의 생년월일, 찾지 못할 시 0'),
 })
 
 const start = async () => {
