@@ -57,8 +57,12 @@ export class PDFAgent<T> extends Agent<T> {
 
     const chain = RunnableSequence.from([
       {
-        context: (input: { question: string }) => retriever.pipe(formatDocumentsAsString).invoke(input.question),
-        question: (input: { question: string }) => input.question,
+        context: async (input: { history: BaseMessage[]; question: string }) => {
+          const docs = await retriever.invoke(input.question)
+          return formatDocumentsAsString(docs)
+        },
+        question: (input: { history: BaseMessage[]; question: string }) => input.question,
+        history: (input: { history: BaseMessage[]; question: string }) => input.history ?? [],
       },
       ChatPromptTemplate.fromMessages([
         ['system', this.systemPrompt],
