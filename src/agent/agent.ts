@@ -1,3 +1,4 @@
+import { OpenAIEmbeddings } from '@langchain/openai'
 import type { ModelType } from '../interface/model'
 import { OpenAI } from '../model/openai'
 import { env } from '../utils/env'
@@ -5,6 +6,7 @@ import { env } from '../utils/env'
 export class Agent<T> {
   protected agent!: any
   protected model!: any
+  protected embeddings!: any
 
   constructor(protected readonly id: ModelType, protected readonly systemPrompt: string) {
     const keySet = {
@@ -20,17 +22,21 @@ export class Agent<T> {
       default:
         throw new Error(`Unsupported model: ${this.id}`)
     }
+
+    this.embeddings = new OpenAIEmbeddings({
+      apiKey: env.OPENAI_API_KEY ?? '',
+    })
   }
 
   protected createAgent(schema?: unknown): this {
     throw new Error('Not implemented')
   }
 
-  protected pipeDocumentLoader() {}
+  protected pipeToPDFRag() {}
 
-  protected pipeTextSplitter() {}
+  // protected pipeTextSplitter() {}
 
-  protected pipeEmbeddings() {}
+  // protected pipeEmbeddings() {}
 
   protected async invoke(input: string): Promise<T> {
     throw new Error('Not implemented')
