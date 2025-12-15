@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  ## history db
+  history:
+    image: alpine:latest
+    container_name: sqlite-history
+    volumes:
+      - ./data/sqlite-data:/data
+    command: tail -f /dev/null
+  ## vector embedding db
+  vector:
+    image: chromadb/chroma
+    ports:
+      - 8000:8000
+    environment:
+      - ALLOW_RESET=true
+    volumes:
+      - ./data/chroma-data:/chroma/chroma

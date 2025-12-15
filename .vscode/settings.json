@@ -1,0 +1,10 @@
+{
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "explicit",
+    "source.removeUnusedImports": "explicit"
+  },
+  "cursor.general.enableAutoComplete": false,
+  "cursor.tab.enabled": false,
+  "cursor.prediction.enabled": false
+}
